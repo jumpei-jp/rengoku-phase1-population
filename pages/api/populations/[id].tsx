@@ -2,7 +2,7 @@ const Population = async (req: any, res: any) => {
     //人口を取得
     // TODO: 環境変数を呼び出すようにする
     const response = await fetch(
-        `https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear?&prefCode=1`,
+        `https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear?&prefCode=${req.query.id}`,
         {
             method: 'GET',
             headers: {

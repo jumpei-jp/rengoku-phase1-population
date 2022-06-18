@@ -37,7 +37,7 @@ export default function Prefecture() {
     //人口を取得する
     const getPopulation = async (prefName: string, prefCode: number) => {
         const fetchPopulation = async () => {
-            const response = await fetch('/api/populations/population')
+            const response = await fetch(`api/populations/${prefCode}`)
             const result = await response.json()
 
             //人口とそれに対応する都道府県情報を追加する
