@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import CompareChart from './CompareMultipleSeries'
 
 export default function Prefecture() {
     const [prefectures, setPrefecture] = useState<Pref[]>([])
@@ -88,6 +89,7 @@ export default function Prefecture() {
                     {pref.prefCode}.{pref.prefName}.{index}
                 </div>
             ))}
+            <CompareChart populationdata={populations}></CompareChart>
         </>
     )
 }
