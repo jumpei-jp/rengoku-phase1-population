@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import styles from '../styles/Home.module.css'
 import CompareChart from './CompareMultipleSeries'
 
 export default function Prefecture() {
@@ -73,23 +74,27 @@ export default function Prefecture() {
 
     return (
         <>
-            {prefectures.map((pref: Pref, index) => (
-                <div key={pref.prefCode}>
-                    <input
-                        type="checkbox"
-                        value={pref.prefName}
-                        onChange={(event) =>
-                            handleOnChange(
-                                pref.prefName,
-                                pref.prefCode,
-                                event.target.checked
-                            )
-                        }
-                    />
-                    {pref.prefCode}.{pref.prefName}.{index}
-                </div>
-            ))}
-            <CompareChart populationdata={populations}></CompareChart>
+            <div className={styles.grid}>
+                {prefectures.map((pref: Pref, index) => (
+                    <div key={pref.prefCode} className={styles.checkbox}>
+                        <input
+                            type="checkbox"
+                            value={pref.prefName}
+                            onChange={(event) =>
+                                handleOnChange(
+                                    pref.prefName,
+                                    pref.prefCode,
+                                    event.target.checked
+                                )
+                            }
+                        />
+                        {pref.prefName}
+                    </div>
+                ))}
+            </div>
+            <div>
+                <CompareChart populationdata={populations}></CompareChart>
+            </div>
         </>
     )
 }
