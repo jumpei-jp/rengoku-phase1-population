@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 
 export default function Prefecture() {
     const [prefectures, setPrefecture] = useState([])
+
+    //都道府県情報を取得
     useEffect(() => {
         const fetchPrefecture = async () => {
             const response = await fetch('/api/prefectures/prefecture')
@@ -20,9 +22,10 @@ export default function Prefecture() {
         <>
             <ul>
                 {prefectures.map((pref: Pref) => (
-                    <p key={pref.prefCode}>
-                        {`${pref.prefCode}: ${pref.prefName}`}
-                    </p>
+                    <div key={pref.prefCode}>
+                        <input type="checkbox" />
+                        {pref.prefCode}.{pref.prefName}
+                    </div>
                 ))}
             </ul>
         </>
