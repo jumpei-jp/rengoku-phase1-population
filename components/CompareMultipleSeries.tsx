@@ -9,6 +9,7 @@ const CompareChart = (populationdata: any) => {
     }
 
     let series = []
+
     // 現在取得している都道府県情報をseriesに入れてグラフに反映させる
     for (let i = 0; i < populationdata.populationdata.length; i++) {
         let setData = populationdata.populationdata[i].data.data

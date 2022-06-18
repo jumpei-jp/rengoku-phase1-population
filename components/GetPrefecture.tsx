@@ -33,6 +33,9 @@ export default function Prefecture() {
         prefCode: number,
         isChecked: boolean
     ) => {
+        // 人口とそれに対応する都道府県情報を追加する
+        let prefPopulation = populations.slice()
+
         // もしチェックが入ったならデータの取得、チェックが外れたならデータを削除
         if (isChecked) {
             getPopulation(prefName, prefCode)
@@ -40,8 +43,8 @@ export default function Prefecture() {
             const deletedPopulation = populations.findIndex(
                 (v) => v.prefCode === prefCode
             )
-            populations.splice(deletedPopulation, 1)
-            setPopulation(populations)
+            prefPopulation.splice(deletedPopulation, 1)
+            setPopulation(prefPopulation)
         }
     }
     //人口を取得する
