@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react'
 
 export default function Prefecture() {
-    const [prefectures, setPrefecture] = useState([])
-
+    const [prefectures, setPrefecture] = useState<Pref[]>([])
+    type Pref = {
+        prefCode: number
+        prefName: string
+    }
     //都道府県情報を取得
     useEffect(() => {
         const fetchPrefecture = async () => {
@@ -13,21 +16,33 @@ export default function Prefecture() {
         fetchPrefecture()
     }, [])
 
-    type Pref = {
-        prefCode: number
-        prefName: string
+    // チェックボックスに変化があった時
+    const handleOnChange = (
+        prefName: string,
+        prefCode: number,
+        isChecked: boolean
+    ) => {
+        console.log(prefCode + ':' + prefName + 'に変化がありました。')
+        console.log(isChecked)
     }
-
     return (
         <>
-            <ul>
-                {prefectures.map((pref: Pref) => (
-                    <div key={pref.prefCode}>
-                        <input type="checkbox" />
-                        {pref.prefCode}.{pref.prefName}
-                    </div>
-                ))}
-            </ul>
+            {prefectures.map((pref: Pref, index) => (
+                <div key={pref.prefCode}>
+                    <input
+                        type="checkbox"
+                        value={pref.prefName}
+                        onChange={(event) =>
+                            handleOnChange(
+                                pref.prefName,
+                                pref.prefCode,
+                                event.target.checked
+                            )
+                        }
+                    />
+                    {pref.prefCode}.{pref.prefName}.{index}
+                </div>
+            ))}
         </>
     )
 }
