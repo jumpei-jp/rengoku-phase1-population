@@ -31,22 +31,25 @@ export default function Prefecture() {
         prefCode: number,
         isChecked: boolean
     ) => {
-        getPopulation(prefName, prefCode)
+        // もしチェックが入ったならデータの取得、チェックが外れたならデータを削除
+        if (isChecked) {
+            getPopulation(prefName, prefCode)
+        } else {
+            const deletedPopulation = populations.findIndex(
+                (v) => v.prefCode === prefCode
+            )
+            populations.splice(deletedPopulation, 1)
+            setPopulation(populations)
+        }
     }
-
     //人口を取得する
     const getPopulation = async (prefName: string, prefCode: number) => {
         const fetchPopulation = async () => {
             const response = await fetch(`api/populations/${prefCode}`)
             const result = await response.json()
 
-            //人口とそれに対応する都道府県情報を追加する
+            // 人口とそれに対応する都道府県情報を追加する
             let prefPopulation = populations.slice()
-            const populationData: PopulationData = {
-                prefName: prefName,
-                prefCode: prefCode,
-                data: result.data,
-            }
 
             prefPopulation.push({
                 prefName: prefName,
