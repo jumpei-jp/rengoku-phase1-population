@@ -1,6 +1,7 @@
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import HighchartsMore from 'highcharts/highcharts-more'
+import 'highcharts/modules/accessibility'
 import React from 'react'
 
 const CompareChart = (populationdata: any) => {
@@ -43,6 +44,14 @@ const CompareChart = (populationdata: any) => {
             text: '各都道府県の人口増加数',
         },
 
+        //X軸
+        xAxis: {
+            accessibility: {
+                rangeDescription: 'Range: 1980 to 2020',
+            },
+            categories: [1980, 1990, 2000, 2010, 2020],
+        },
+
         //Y軸
         yAxis: {
             floor: 0,
@@ -53,14 +62,6 @@ const CompareChart = (populationdata: any) => {
             offset: 50, //plotエリアからの距離
             tickAmount: 8, //横軸に合計でいくつ目盛りを設置するのか
             tickInterval: 1000000, //横軸の目盛りのインターバル
-        },
-
-        //X軸
-        xAxis: {
-            accessibility: {
-                rangeDescription: 'Range: 1980 to 2020',
-            },
-            categories: [1980, 1990, 2000, 2020],
         },
 
         //都道府県名とかのレイアウト系
@@ -75,7 +76,6 @@ const CompareChart = (populationdata: any) => {
                 label: {
                     connectorAllowed: false,
                 },
-                pointStart: 1980,
             },
         },
 
