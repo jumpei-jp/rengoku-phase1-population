@@ -27,7 +27,7 @@ export default function Prefecture() {
         fetchPrefecture()
     }, [])
 
-    // チェックボックスに変化があった時
+    // チェックボックスに変化があった時の動作
     const handleOnChange = (
         prefName: string,
         prefCode: number,
@@ -65,14 +65,6 @@ export default function Prefecture() {
         }
 
         fetchPopulation()
-    }
-    type PopulationData = {
-        prefName: string
-        prefCode: number
-        data: {
-            year: number
-            value: number
-        }[]
     }
 
     return (
