@@ -4,7 +4,7 @@ import HighchartsMore from 'highcharts/highcharts-more'
 import 'highcharts/modules/accessibility'
 import React from 'react'
 
-const CompareChart = (populationdata: any) => {
+const CompareChart = (populationdata: { populationdata: string | any[] }) => {
     if (typeof Highcharts === 'object') {
         HighchartsMore(Highcharts)
     }
@@ -27,11 +27,30 @@ const CompareChart = (populationdata: any) => {
         })
     }
 
+    // オプションの型定義
     type Options = {
         title: object
-        yAxis: object
-        xAxis: object
-        legend: object
+        yAxis: {
+            floor: 0
+            ceiling: 15000000
+            title: {
+                text: string
+            }
+            offset: number
+            tickAmount: 8
+            tickInterval: 1000000
+        }
+        xAxis: {
+            accessibility: {
+                rangeDescription: string
+            }
+            categories: number[]
+        }
+        legend: {
+            layout: string
+            align: string
+            verticalAlign: string
+        }
         plotOptions: object
         series: {
             name: string
