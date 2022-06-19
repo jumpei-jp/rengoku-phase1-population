@@ -1,11 +1,30 @@
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import HighchartsMore from 'highcharts/highcharts-more'
+import 'highcharts/modules/accessibility'
 import React from 'react'
 
-const CompareChart = () => {
+const CompareChart = (populationdata: any) => {
     if (typeof Highcharts === 'object') {
         HighchartsMore(Highcharts)
+    }
+
+    let series = []
+
+    // 現在取得している都道府県情報をseriesに入れてグラフに反映させる
+    for (let i = 0; i < populationdata.populationdata.length; i++) {
+        let setData = populationdata.populationdata[i].data.data
+
+        series.push({
+            name: populationdata.populationdata[i].prefName,
+            data: [
+                setData[4].value, // 1980
+                setData[6].value, // 1990
+                setData[8].value, // 2000
+                setData[10].value, // 2010
+                setData[12].value, // 2020
+            ],
+        })
     }
 
     type Options = {
@@ -25,25 +44,24 @@ const CompareChart = () => {
             text: '各都道府県の人口増加数',
         },
 
-        //Y軸
-        yAxis: {
-            title: {
-                text: '人口数',
-            },
-            scale: 10000,
-            ceiling: 10000000, //最大値
-            floor: 0, //最小値
-            offset: 50, //plotエリアからの距離
-            tickAmount: 8, //横軸に合計でいくつ目盛りを設置するのか
-            tickInterval: 1000000, //横軸の目盛りのインターバル
-        },
-
         //X軸
         xAxis: {
             accessibility: {
                 rangeDescription: 'Range: 1980 to 2020',
             },
-            categories: [1980, 1990, 2000, 2020],
+            categories: [1980, 1990, 2000, 2010, 2020],
+        },
+
+        //Y軸
+        yAxis: {
+            floor: 0,
+            ceiling: 15000000,
+            title: {
+                text: '人口数',
+            },
+            offset: 50, //plotエリアからの距離
+            tickAmount: 8, //横軸に合計でいくつ目盛りを設置するのか
+            tickInterval: 1000000, //横軸の目盛りのインターバル
         },
 
         //都道府県名とかのレイアウト系
@@ -58,32 +76,13 @@ const CompareChart = () => {
                 label: {
                     connectorAllowed: false,
                 },
-                pointStart: 1980,
             },
         },
 
-        series: [
-            {
-                name: '東京',
-                data: [11988120, 12088129, 12988129, 13988129],
-            },
-            {
-                name: '大阪',
-                data: [7988120, 8088129, 8288129, 8888129],
-            },
-            {
-                name: '愛知',
-                data: [6788120, 6888129, 6988129, 7588129],
-            },
-            {
-                name: '福岡',
-                data: [4888120, 4988129, 5088129, 5188129],
-            },
-            {
-                name: '神奈川',
-                data: [8888120, 8988129, 9000029, 9058129],
-            },
-        ],
+        series:
+            populationdata.populationdata.length === 0
+                ? [{ name: '都道府県名', data: [] }]
+                : series,
     }
     return (
         <>
