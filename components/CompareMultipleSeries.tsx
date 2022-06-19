@@ -45,12 +45,11 @@ const CompareChart = (populationdata: any) => {
 
         //Y軸
         yAxis: {
+            floor: 0,
+            ceiling: 15000000,
             title: {
                 text: '人口数',
             },
-            scale: 10000,
-            ceiling: 10000000, //最大値
-            floor: 0, //最小値
             offset: 50, //plotエリアからの距離
             tickAmount: 8, //横軸に合計でいくつ目盛りを設置するのか
             tickInterval: 1000000, //横軸の目盛りのインターバル
